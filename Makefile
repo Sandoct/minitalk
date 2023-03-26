@@ -16,20 +16,28 @@ FLAGS = -Wall -Wextra -Werror
 
 NAME = Minitalk
 
+NAMES = server
+
+NAMEC = client
+
 %.o: %.c
 	@$(CC) $(FLAGS) -o $@ -c $<
 
-all: $(NAME)
+all: $(NAMES)
 	
-$(NAME):
-	@make --no-print-directory -C libft
-	@$(CC) $(FLAGS) client.c -L./libft -lft -o client
-	@$(CC) $(FLAGS) server.c -L./libft -lft -o server
+bonus: $(NAMEB)
 
-bonus:
+$(NAMES):
+	@make --no-print-directory -C libft
+	@$(CC) $(FLAGS) client.c -L./libft -lft -o $(NAMEC)
+	@$(CC) $(FLAGS) server.c -L./libft -lft -o $(NAMES)
+	@echo "\033[1;32m[executable created]"
+
+$(NAMEB):
 	@make --no-print-directory -C libft
 	@$(CC) $(FLAGS) bonus/client_bonus.c -L./libft -lft -o client
 	@$(CC) $(FLAGS) bonus/server_bonus.c -L./libft -lft -o server
+	@echo "\033[1;32m[executable created]"
 
 clean:
 	@make fclean --no-print-directory -C libft

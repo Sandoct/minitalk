@@ -31,7 +31,7 @@ static void	send(int pid, char c)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(42000);
+		usleep(420);
 	}
 }
 
@@ -47,7 +47,7 @@ static void	pack(int pid, size_t c)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(42000);
+		usleep(420);
 	}
 }
 

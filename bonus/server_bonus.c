@@ -14,10 +14,16 @@
 #include "../libft/libft.h"
 #include "../libft/printf/ft_printf.h"
 
-static int	prout(char *str, char c)
+static int	wip(char *str, char c)
 {	
 	str[ft_strlen(str)] = c;
 	return (0);
+}
+
+static void	fastpass(int pid)
+{
+	usleep(500);
+	kill(pid, SIGUSR1);
 }
 
 static void	serv(int sig, siginfo_t *si, void *dc)
@@ -36,18 +42,16 @@ static void	serv(int sig, siginfo_t *si, void *dc)
 		str = ft_calloc((int)size + 1, 1);
 	cal = (request - (sizeof(size_t) * 8));
 	if (request > (sizeof(size_t) * 8) && !(cal % 8))
-		c = prout(str, c);
+		c = wip(str, c);
 	if (request > (sizeof(size_t) * 8) && (int)(size - cal / 8) == 0)
 	{
 		size = 0;
 		request = 0;
 		ft_putstr_fd(str, 1);
 		free(str);
-		usleep(500);
-		kill(si->si_pid, SIGUSR1);
+		fastpass(si->si_pid);
 	}
-	usleep(500);
-	kill(si->si_pid, SIGUSR1);
+	fastpass(si->si_pid);
 }
 
 int	main(void)
